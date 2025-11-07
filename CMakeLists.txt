@@ -4,8 +4,6 @@ project(ps2_stdiscm)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(ps2_stdiscm main.cpp
-        Player.cpp
-        Player.h
         DungeonInstance.cpp
         DungeonInstance.h
 )
