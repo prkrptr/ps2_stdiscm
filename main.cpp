@@ -1,10 +1,19 @@
 #include <iostream>
 #include <filesystem>
+#include <queue>          // For player queues
+#include <thread>
+#include <mutex>
+#include <condition_variable> // For efficient waiting
+#include <semaphore>      // For limiting concurrent instances (C++20)
+#include <chrono>         // For time durations
+#include <random>         // For random dungeon clear times
+#include <atomic>         // For the monitoring thread exit condition
 
+#include "DungeonInstance.h"
 
 // global variables
 //n - maximum number of concurrent instances
-uint64_t n = 0;
+uint64_t n_instances = 0;
 // t - number of tank players in the queue
 uint64_t tank = 0;
 
@@ -27,7 +36,7 @@ void inputMode() {
     // NO zero input (so that a party can be made?)
     std::cout << "Enter Max number of concurrent instance: ";
     std::cin >> number;
-    n = number;
+    n_instances = number;
     std::cin.clear();
 
     std::cout << "Enter number of tank players: ";
@@ -60,7 +69,7 @@ void inputMode() {
     // TODO: Validate inputs
 
     // validate show inputs
-    std::cout << "n = " + std::to_string(n) << std::endl;
+    std::cout << "n = " + std::to_string(n_instances) << std::endl;
     std::cout << "tank = " + std::to_string(tank) << std::endl;
     std::cout << "healer = " + std::to_string(healer) << std::endl;
     std::cout << "dps = " + std::to_string(dps) << std::endl;
