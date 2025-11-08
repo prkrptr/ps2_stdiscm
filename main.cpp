@@ -129,7 +129,7 @@ void dispatcher_thread() {
         for (auto& dungeon_ptr : dungeons) {
             if (!dungeon_ptr->is_active) {
                 dungeon_ptr->is_active = true;
-        
+
                 std::thread(run_dungeon, dungeon_ptr->instance_id).detach();
                 break;
             }
@@ -169,6 +169,7 @@ void dispatcher_thread() {
 
         for (auto& dungeon_ptr : dungeons) {
             if (!dungeon_ptr->is_active) {
+                dungeon_ptr->is_active = true;
                 std::thread(run_dungeon, dungeon_ptr->instance_id).detach();
                 break;
             }
