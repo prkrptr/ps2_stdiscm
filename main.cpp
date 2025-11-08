@@ -128,6 +128,8 @@ void dispatcher_thread() {
         // launch the party thread
         for (auto& dungeon_ptr : dungeons) {
             if (!dungeon_ptr->is_active) {
+                dungeon_ptr->is_active = true;
+
                 std::thread(run_dungeon, dungeon_ptr->instance_id).detach();
                 break;
             }
