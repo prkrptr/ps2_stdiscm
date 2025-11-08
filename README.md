@@ -1,18 +1,40 @@
 # ps2_stdiscm
 ## Build / Compilation Instructions
 Run the following commands in order:
-
-1. mkdir build
-2. cd ./build
-3. cmake ..
-4. cmake --build .
-5. cd ./Debug
-6. "ps2_stdiscm.exe" to run the program
-
+```
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
 
 # Running the Program:
-1. Ensure that the config.txt file is in the directory. (There should be a copy after building using cmake)
-2. After doing step 6 from the compilation instructions, follow the instructions in the program.
-3. Choose the variation by inputting a number from 1 to 4.
-4. Wait for program to end. 
+```
+cd ./Debug
+ps2_stdiscm.exe
+```
 
+
+### Test cases for P2:
+```
+#1 Even-steven case
+Tank: 10
+Heal: 10
+DPS: 30
+
+
+#2 No heals
+T: 20
+H: 5
+D: 50
+
+#3 No tanks
+T: 10
+H: 50
+D: 100
+
+#4 So manyyyyyy
+T: 200
+H: 200
+D: 1000
+````
