@@ -30,6 +30,7 @@ std::vector<std::unique_ptr<DungeonInstance>> dungeons;
 std::queue<int> tank_queue;
 std::queue<int> healer_queue;
 std::queue<int> dps_queue;
+std::vector<std::string> event_log;
 
 // for synchronizing
 std::mutex queue_mutex;
@@ -265,7 +266,12 @@ std::string get_current_timestamp_ms() {
 void log_message(const std::string& message) {
     // lock the mutex to ensure the timestamp and message are printed together without interruption
     std::lock_guard<std::mutex> lock(cout_mutex);
-    std::cout << "[" << get_current_timestamp_ms() << "] " << message << std::endl;
+    // Create the full log entry string once.
+    std::string log_entry = "[" + get_current_timestamp_ms() + "] " + message;
+
+    std::cout << log_entry << std::endl;
+    //for final report
+    event_log.push_back(log_entry);
 }
 
 void inputMode() {
@@ -329,9 +335,14 @@ int main() {
     // join all threads
     dispatcher.join();
     monitor.join();
-
+    std::cout << "\n\n--- Full Event Log ---" << std::endl;
+    std::cout << "========================" << std::endl;
+    for (const auto& entry : event_log) {
+        std::cout << entry << std::endl;
+    }
+    std::cout << "========================" << std::endl;
     // final report
-    std::cout << "\n\n--- Simulation Finished ---" << std::endl;
+    std::cout << "\n--- Dungeon Instance Simulation Report ---" << std::endl;
     std::cout << "===========================" << std::endl;
     for (const auto& instance : dungeons) {
         std::cout << "  Instance " << instance->instance_id
