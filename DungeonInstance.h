@@ -14,7 +14,7 @@ public:
     int instance_id;
     std::atomic<bool> is_active;
     std::atomic<int> parties_served;
-    double total_time_served; // currently Using double for seconds (or should i change this ba?)
+    double total_time_served;
 };
 
 
